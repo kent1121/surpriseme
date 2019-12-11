@@ -17,6 +17,7 @@
     
     <div class="container">
         @include('commons.error_messages')
+        @include('commons.flash')
         @yield('content')
     </div>
 

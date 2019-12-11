@@ -11,6 +11,7 @@
                     <img class="rounded img-fluid" src="" alte="画像が入ります">
                 </div>
             </div>
+            {{ link_to_route('users.edit', 'プロフィールを編集する', ['id' => $user->id]) }}
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
