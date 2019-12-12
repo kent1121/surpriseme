@@ -35,7 +35,7 @@ class UsersController extends Controller
                 'user' => $user,
             ]);
         } else {
-            return back()->with('flash_danger', 'アクセス権限がありません');
+            return redirect('/')->with('flash_danger', 'アクセス権限がありません');
         }
     }
     
@@ -60,12 +60,34 @@ class UsersController extends Controller
             $user->age = $request->age;
             $user->profile = $request->profile;
             $user->save();
-        } else {
-            return back()->with('flash_danger', 'アクセス権限がありません');
         }
         
         return view('users.show',[
             'user' => $user
         ]);
+    }
+    
+    public function destroy_confirmation($id)
+    {
+        $user = User::find($id);
+        
+        if (\Auth::id() === $user->id) {
+            return view('users.delete_confirmation', [
+                'user' => $user,
+            ]);
+        } else {
+            return redirect('/')->with('flash_danger', 'アクセス権限がありません');
+        }
+    }
+    
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+        }
+        
+        return redirect('/');
     }
 }

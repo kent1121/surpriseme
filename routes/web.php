@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','SurprisesController@index');
+Route::get('surprises/{id}', 'SurprisesController@show')->name('surprises.show');
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -24,4 +23,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
+    Route::get('users/{id}/delete_confirmation', 'UsersController@destroy_confirmation')->name('users.delete_confirmation');
+    
+    Route::resource('surprises', 'SurprisesController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
 });

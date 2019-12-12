@@ -39,7 +39,7 @@
                     {!! Form::textarea('profile', null,  ['class' => 'form-control', 'rows' => '5']) !!}
                 </div>
                 
-                {!! Form::submit('更新する', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::submit('更新する', ['class' => 'btn btn-primary btn-block mb-5']) !!}
             {!! Form::close() !!}
         </div>
     </div>
