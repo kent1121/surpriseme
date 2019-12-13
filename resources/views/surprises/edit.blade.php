@@ -13,7 +13,7 @@
             
             <div class="form-group">
                 {!! Form::label('reaction', 'リアクション') !!}
-                {!! Form::text('reaction', null, ['class' => 'form-control']) !!}
+                {!! Form::select('reaction', ['手ごたえあり' => '手ごたえあり', 'まずまず' => 'まずまず', '失敗した' => '失敗した'], null, ['class' => 'form-control']) !!}
             </div>
             
             <div class="form-group">
@@ -23,7 +23,7 @@
             
             <div class="form-group">
                 {!! Form::label('target', 'ターゲット') !!}
-                {!! Form::text('target', null, ['class' => 'form-control']) !!}
+                {!! Form::select('target', ['家族' => '家族', '恋人' => '恋人', '友達' => '友達', '夫婦' => '夫婦', 'その他' => 'その他'], null, ['class' => 'form-control']) !!}
             </div>
             
             <div class="form-group">
@@ -32,5 +32,6 @@
             </div>
             {!! Form::submit('更新する', ['class' => 'btn btn-primary btn-block']) !!}
         {!! Form::close() !!}
+
     </div>
 @endsection

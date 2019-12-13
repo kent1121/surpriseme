@@ -15,7 +15,7 @@ class SurprisesController extends Controller
      */
     public function index()
     {
-        $surprises = Surprise::orderBy('created_at', 'desc')->paginate(12);
+        $surprises = Surprise::orderBy('created_at', 'desc')->paginate(6);
         
         return view('welcome', [
             'surprises' => $surprises,
@@ -106,9 +106,7 @@ class SurprisesController extends Controller
         
         session()->flash('flash_success', '投稿を更新しました');
         
-        return view('surprises.show', [
-            'surprise' => $surprise,
-        ]);
+        return redirect()->route('surprises.show', ['id' => $surprise->id]);
     }
 
     /**
@@ -119,6 +117,14 @@ class SurprisesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $surprise = Surprise::find($id);
+        
+        if (\Auth::id() === $surprise->user_id) {
+            $surprise->delete();
+        } else {
+            return redirect('/')->with('flash_danger', 'アクセス権限がありません');
+        }
+        
+        return redirect('/')->with('flash_danger', '投稿を削除しました');
     }
 }
