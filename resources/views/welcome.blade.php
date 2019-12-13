@@ -3,7 +3,7 @@
 @section('content')
     @if (Auth::check())
         <h3 class="mb-5">最近の投稿</h3>
-        @include('surprises.index')
+        @include('surprises.index', ['surprises' => $surprises])
     @else
         <div class="center jumbotron">
             <div class="text-center">

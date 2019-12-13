@@ -29,7 +29,11 @@ class SurprisesController extends Controller
      */
     public function create()
     {
-        //
+        $surprise = new Surprise;
+        
+        return view('surprises.create', [
+            'surprise' => $surprise,
+        ]);
     }
 
     /**
@@ -40,7 +44,39 @@ class SurprisesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:191',
+            'reaction' => 'required|max:191',
+            'budget' => 'required|numeric',
+            'target' => 'required|max:191',
+            'content' => 'required|max:1500'
+        ]);
+        
+        $icon = '';
+        switch($request->reaction) {
+            case '手ごたえあり':
+                $icon = 'fa-grin-squint';
+                break;
+            case 'まずまず':
+                $icon = 'fa-smile';
+                break;
+            case '失敗した':
+                $icon = 'fa-grin-beam-sweat';
+                break;
+            default:
+                $icon = 'fa-question-circle';
+        }
+        
+        $request->user()->surprises()->create([
+            'title' => $request->title,
+            'reaction' => $request->reaction,
+            'icon' => $icon,
+            'budget' => $request->budget,
+            'target' => $request->target,
+            'content' => $request->content,
+        ]);
+        
+        return redirect('/')->with('flash_success', '投稿が完了しました');
     }
 
     /**

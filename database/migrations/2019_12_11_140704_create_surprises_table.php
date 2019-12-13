@@ -18,6 +18,7 @@ class CreateSurprisesTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->string('title');
             $table->string('reaction');
+            $table->string('icon')->nullable();
             $table->text('content');
             $table->string('image')->nullable();
             $table->integer('budget');

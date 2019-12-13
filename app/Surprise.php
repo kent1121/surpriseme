@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Surprise extends Model
 {
-    protected $fillable = ['user_id', 'title', 'reaction', 'content', 'image', 'budget', 'target'];
+    protected $fillable = ['user_id', 'title', 'reaction', 'icon', 'content', 'image', 'budget', 'target'];
     
     public function user()
     {
