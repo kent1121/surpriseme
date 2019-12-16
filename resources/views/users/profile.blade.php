@@ -1,12 +1,8 @@
-<div class="card mb-2">
-    <div class="card-header">
-        <h3>自己紹介</h3>
-    </div>
-    <div class="card-body">
-        <p>{{ $user->profile }}</p>
-        <p>性別：{{ $user->sex }}</p>
-        <p>年齢：{{ $user->age }}</p>
-    </div>
+<div class="border mb-2">
+    <p>自己紹介：</p>
+    <p>{{ $user->profile }}</p>
+    <p>性別：{{ $user->sex }}</p>
+    <p>年齢：{{ $user->age }}</p>
 </div>
 @if (Auth::id() == $user->id)
     {!! link_to_route('users.edit', 'プロフィールを編集する', ['id' => $user->id], ['class' => 'btn btn-primary btn-block mb-5']) !!}

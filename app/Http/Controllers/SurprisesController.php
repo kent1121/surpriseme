@@ -132,8 +132,24 @@ class SurprisesController extends Controller
         
         $surprise = Surprise::find($id);
         
+        $icon = '';
+        switch($request->reaction) {
+            case '手ごたえあり':
+                $icon = 'fa-grin-squint';
+                break;
+            case 'まずまず':
+                $icon = 'fa-smile';
+                break;
+            case '失敗した':
+                $icon = 'fa-grin-beam-sweat';
+                break;
+            default:
+                $icon = 'fa-question-circle';
+        }
+        
         $surprise->title = $request->title;
         $surprise->reaction = $request->reaction;
+        $surprise->icon = $icon;
         $surprise->budget = $request->budget;
         $surprise->target = $request->target;
         $surprise->content = $request->content;

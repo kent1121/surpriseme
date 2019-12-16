@@ -31,4 +31,38 @@ class User extends Authenticatable
     {
         return $this->hasMany(Surprise::class);
     }
+    
+    public function favorites()
+    {
+        return $this->belongsToMany(Surprise::class, 'favorites', 'user_id', 'surprise_id')->withTimestamps();
+    }
+    
+    public function is_favoriting($surpriseId)
+    {
+        return $this->favorites()->where('surprise_id', $surpriseId)->exists();
+    }
+    
+    public function favorite($surpriseId)
+    {
+        $exist = $this->is_favoriting($surpriseId);
+        
+        if ($exist) {
+            return false;
+        } else {
+            $this->favorites()->attach($surpriseId);
+            return true;
+        }
+    }
+    
+    public function unfavorite($surpriseId)
+    {
+        $exist = $this->is_favoriting($surpriseId);
+        
+        if ($exist) {
+            $this->favorites()->detach($surpriseId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

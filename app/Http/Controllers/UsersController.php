@@ -17,6 +17,19 @@ class UsersController extends Controller
         ]);
     }
     
+    public function surprises_index($id)
+    {
+        $user = User::find($id);
+        $surprises = $user->surprises()->orderBy('created_at', 'desc')->paginate(12);
+        
+        $data = [
+            'user' => $user,
+            'surprises' => $surprises,
+        ];
+        
+        return view('users.surprises_index', $data);
+    }
+    
     public function show($id)
     {
         $user = User::find($id);
@@ -89,5 +102,20 @@ class UsersController extends Controller
         }
         
         return redirect('/');
+    }
+    
+    public function favorites($id)
+    {
+        $user = User::find($id);
+        $surprises = $user->favorites()->paginate(12);
+        
+        $data = [
+            'user' => $user,
+            'surprises' => $surprises,
+        ];
+        
+        $data += $this->counts($user);
+        
+        return view('users.favorites', $data);
     }
 }
