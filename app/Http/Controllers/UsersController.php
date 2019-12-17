@@ -27,6 +27,8 @@ class UsersController extends Controller
             'surprises' => $surprises,
         ];
         
+        $data += $this->counts($user);
+        
         return view('users.surprises_index', $data);
     }
     
@@ -34,9 +36,13 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         
-        return view('users.show', [
-            'user' => $user,
-        ]);
+        $data = [
+            'user' => $user
+        ];
+        
+        $data += $this->counts($user);
+        
+        return view('users.show', $data);
     }
     
     public function edit($id)
@@ -75,9 +81,7 @@ class UsersController extends Controller
             $user->save();
         }
         
-        return view('users.show',[
-            'user' => $user
-        ]);
+        return redirect()->route('users.show', ['id' => $user->id]);
     }
     
     public function destroy_confirmation($id)

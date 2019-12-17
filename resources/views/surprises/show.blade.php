@@ -2,7 +2,7 @@
 
 @section('content')
     @if ($surprise)
-        <div class="col-sm-8 offset-sm-2">
+        <div class="col-sm-8 offset-sm-2 mb-5">
             <div class="mb-5">
                 <h4> {{ $surprise->title }}</h4>
                 <p>投稿者：{{ link_to_route('users.show', $surprise->user->name, ['id' => $surprise->user->id]) }}</p>
@@ -23,7 +23,14 @@
                 </table>
                 <h5>体験談</h5>
                 <p class="bg-light">{{ $surprise->content }}</p>
-                @include('surprises.favorite_button', ['surprise' => $surprise])
+                <div class="d-flex">
+                    <div class="mr-2">
+                        @include('surprises.favorite_button', ['surprise' => $surprise])
+                    </div>
+                    <div>
+                        @include('surprises.want_button', ['surprises' => $surprise])
+                    </div>
+                </div>
             </div>
             @if (Auth::id() == $surprise->user_id)
                 {!! link_to_route('surprises.edit', '投稿を編集する', ['id' => $surprise->id], ['class' => 'btn btn-primary btn-block']) !!}

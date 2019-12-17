@@ -26,12 +26,12 @@
                 
                 <div class="form-group">
                     {!! Form::label('sex', '性別') !!}
-                    {!! Form::text('sex', null, ['class' => 'form-control']) !!}
+                    {!! Form::select('sex', ['男性' => '男性', '女性' => '女性', '秘密' => '秘密'], null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('age', '年齢') !!}
-                    {!! Form::text('age', null, ['class' => 'form-control']) !!}
+                    {!! Form::select('age', ['10代以下' => '10代以下', '20代' => '20代', '30代' => '30代', '40代以上' => '40代以上', '秘密' => '秘密', ], null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">

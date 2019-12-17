@@ -11,6 +11,18 @@
                     <p class="mb-0">体験談：</p>
                     <p class="small">{{ mb_substr($surprise->content, 0, 100) }}{!! link_to_route('surprises.show', ' ... 詳細を見る', ['id' => $surprise->id]) !!}</p>
                 </div>
+                @php
+                    $count_favorites = $surprise->favorite_users->count();
+                    $count_wants = $surprise->want_users->count();
+                @endphp
+                <div class="d-flex mb-2">
+                    <div class="mr-2">
+                        @include('surprises.favorite_button', ['id' => $surprise->id, 'count_favorite_users' => $count_favorites])
+                    </div>
+                    <div>
+                        @include('surprises.want_button', ['id' => $surprise->id, 'count_want_users' => $count_wants])
+                    </div>
+                </div>
             </article>
         @endforeach
     @endif

@@ -65,4 +65,38 @@ class User extends Authenticatable
             return false;
         }
     }
+    
+    public function wants()
+    {
+        return $this->belongsToMany(Surprise::class, 'wants', 'user_id', 'surprise_id')->withTimestamps();
+    }
+    
+    public function is_wanting($surpriseId)
+    {
+        return $this->wants()->where('surprise_id', $surpriseId)->exists();
+    }
+    
+    public function want($surpriseId)
+    {
+        $exist = $this->is_wanting($surpriseId);
+        
+        if ($exist) {
+            return false;
+        } else {
+            $this->wants()->attach($surpriseId);
+            return true;
+        }
+    }
+    
+    public function not_want($surpriseId)
+    {
+        $exist = $this->is_wanting($surpriseId);
+        
+        if ($exist) {
+            $this->wants()->detach($surpriseId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

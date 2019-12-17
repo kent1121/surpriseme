@@ -89,9 +89,13 @@ class SurprisesController extends Controller
     {
         $surprise = Surprise::find($id);
         
-        return view('surprises.show', [
-            'surprise' => $surprise,
-        ]);
+        $data = [
+            'surprise' =>$surprise
+        ];
+        
+        $data += $this->surprise_counts($surprise);
+        
+        return view('surprises.show', $data);
     }
 
     /**

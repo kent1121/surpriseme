@@ -21,4 +21,15 @@ class Controller extends BaseController
             'count_favorites' => $count_favorites,
         ];
     }
+    
+    public function surprise_counts($surprise)
+    {
+        $count_favorite_users = $surprise->favorite_users()->count();
+        $count_want_users = $surprise->want_users()->count();
+        
+        return [
+            'count_favorite_users' => $count_favorite_users,
+            'count_want_users' => $count_want_users,
+        ];
+    }
 }

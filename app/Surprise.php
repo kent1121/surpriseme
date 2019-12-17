@@ -17,4 +17,9 @@ class Surprise extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'surprise_id', 'user_id')->withTimestamps();
     }
+    
+    public function want_users()
+    {
+        return $this->belongsToMany(User::class, 'wants', 'surprise_id', 'user_id')->withTimestamps();
+    }
 }

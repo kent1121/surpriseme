@@ -11,7 +11,6 @@
 |
 */
 Route::get('/','SurprisesController@index');
-Route::get('surprises/{id}/show', 'SurprisesController@show')->name('surprises.show');
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -29,10 +28,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
     });
     
-    Route::resource('surprises', 'SurprisesController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('surprises', 'SurprisesController', ['only' => ['create', 'store', 'show', 'edit', 'update', 'destroy']]);
     
     Route::group(['prefix' => 'surprises/{id}'], function() {
-        Route::post('favotite', 'FavoritesController@store')->name('favorites.favorite');
-        Route::delete('favotite', 'FavoritesController@destroy')->name('favorites.unfavorite');
+        Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
+        Route::delete('unfavorite', 'FavoritesController@destroy')->name('favorites.unfavorite');
+        Route::post('want', 'WantsController@store')->name('wants.want');
+        Route::delete('not_want', 'WantsController@destroy')->name('wants.not_want');
     });
 });
