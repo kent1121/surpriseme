@@ -22,4 +22,9 @@ class Surprise extends Model
     {
         return $this->belongsToMany(User::class, 'wants', 'surprise_id', 'user_id')->withTimestamps();
     }
+    
+    public function surprise_comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
